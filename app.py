@@ -69,11 +69,6 @@ st.markdown(f"""
         color: {active_theme['primary']} !important;
     }}
     
-    /* NUKE THE BOTTOM RIGHT CORNER */
-    .viewerBadge_container {{display: none !important;}}
-    .viewerBadge_link {{display: none !important;}}
-    #ManageAppButton {{display: none !important;}}
-    
     /* 1. The Breathing Background */
     .stApp {{ 
         background: linear-gradient(-45deg, #020403, #061410, #020403, #041214);
