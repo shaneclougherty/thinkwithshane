@@ -8,7 +8,8 @@ from supabase import create_client, Client
 load_dotenv()
 
 st.set_page_config(
-    page_title="The Canvas",
+    page_title="Think With Shane",  # Replace with your new name
+    page_icon="💠",                 # Drop any emoji you want right here
     layout="centered",
     initial_sidebar_state="collapsed"
 )
