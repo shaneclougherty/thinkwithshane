@@ -67,27 +67,45 @@ st.markdown(f"""
     }}
     @keyframes ambientGlow {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
     
-    /* 2. THE BRANDING ASSASSIN (Silent Method) */
-
-[data-testid="stHeader"] {{ background: rgba(0,0,0,0) !important; }}
-
-/* Hide ONLY the branding/toolbar icons, not the whole header action area */
-[data-testid="stToolbar"] {{ display: none !important; }}
-[data-testid="stDecoration"] {{ display: none !important; }}
-footer {{ display: none !important; }}
-.viewerBadge_container {{ display: none !important; }}
-
-/* Hide the GitHub and Streamlit logo icons specifically */
-[data-testid="stHeaderActionElements"] a {{ display: none !important; }}
-[data-testid="stHeaderActionElements"] button:not([data-testid="stSidebarNavCollapseButton"]):not([data-testid="stBaseButton-headerNoPadding"]) {{ display: none !important; }}
-
-/* Make the Sidebar Toggle Button stand out */
-button[data-testid="stSidebarCollapseButton"],
-button[data-testid="stSidebarNavCollapseButton"] {{
-    color: {active_theme['primary']} !important;
-    opacity: 1 !important;
-    pointer-events: all !important;
-}}
+    /* 2. THE BRANDING ASSASSIN - Surgical Method */
+    /* Transparent header background */
+    [data-testid="stHeader"] {{ background: rgba(0,0,0,0) !important; }}
+    
+    /* Hide the bottom footer */
+    footer {{ visibility: hidden !important; }}
+    .viewerBadge_container__r5tak {{ display: none !important; }}
+    
+    /* Hide Streamlit menu button (hamburger) and GitHub icon - but NOT sidebar toggle */
+    #MainMenu {{ visibility: hidden !important; }}
+    
+    /* Hide all anchor tags in the header (GitHub link, etc.) */
+    [data-testid="stHeader"] a {{ display: none !important; }}
+    
+    /* Hide the specific Streamlit branding button - it has no data-testid but is the 2nd button */
+    [data-testid="stHeaderActionElements"] > div:last-child {{ display: none !important; }}
+    
+    /* CRITICAL: Force sidebar toggle to always be visible */
+    [data-testid="stSidebarCollapsedControl"] {{
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: all !important;
+    }}
+    [data-testid="stSidebarCollapsedControl"] button {{
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: all !important;
+        color: {active_theme['primary']} !important;
+    }}
+    
+    /* Also handle the collapse button when sidebar IS open */
+    [data-testid="stSidebarCollapseButton"] {{
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        color: {active_theme['primary']} !important;
+    }}
 
     /* 3. The Dynamic Orbs */
     .orb-1 {{
