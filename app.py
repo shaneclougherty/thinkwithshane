@@ -63,26 +63,20 @@ st.markdown(f"""
         background-size: 400% 400%;
         background-attachment: fixed;
         animation: ambientGlow 18s ease infinite;
-        overflow-x: hidden;
     }}
     @keyframes ambientGlow {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
     
-    /* 2. THE BRANDING ASSASSIN (Nuke everything but the Sidebar Toggle) */
-    [data-testid="stHeader"] {{
-        background-color: rgba(0,0,0,0) !important;
-    }}
-    [data-testid="stHeaderActionElements"], [data-testid="stToolbar"], footer {{
-        display: none !important;
-    }}
-    .viewerBadge_container, .viewerBadge_link, #ManageAppButton {{
-        display: none !important;
-    }}
+    /* 2. THE BRANDING ASSASSIN (Silent Method) */
+    /* This keeps the header active (so the sidebar works) but hides the icons */
+    [data-testid="stHeader"] {{ background: rgba(0,0,0,0) !important; }}
+    [data-testid="stHeaderActionElements"] {{ opacity: 0 !important; pointer-events: none !important; }}
+    [data-testid="stToolbar"] {{ display: none !important; }}
+    footer {{ display: none !important; }}
+    .viewerBadge_container {{ display: none !important; }}
 
-    /* Force the Sidebar Button to be visible and themed */
+    /* Make the Sidebar Toggle Button stand out */
     button[data-testid="stSidebarCollapseButton"] {{
         color: {active_theme['primary']} !important;
-        background-color: rgba(255,255,255,0.05) !important;
-        border-radius: 50% !important;
     }}
 
     /* 3. The Dynamic Orbs */
@@ -90,43 +84,37 @@ st.markdown(f"""
         position: fixed; top: 15%; left: 5%; width: 50vw; height: 50vw;
         background-color: {active_theme['orb1']}; filter: blur(140px);
         border-radius: 50%; z-index: 0; pointer-events: none;
-        animation: float 12s infinite alternate ease-in-out; transition: background-color 1.5s ease;
+        animation: float 12s infinite alternate ease-in-out;
     }}
     .orb-2 {{
         position: fixed; bottom: -10%; right: 5%; width: 60vw; height: 60vw;
         background-color: {active_theme['orb2']}; filter: blur(160px);
         border-radius: 50%; z-index: 0; pointer-events: none;
-        animation: floatReverse 15s infinite alternate ease-in-out; transition: background-color 1.5s ease;
+        animation: floatReverse 15s infinite alternate ease-in-out;
     }}
-    @keyframes float {{ 0% {{ transform: translate(0px, 0px) scale(1); }} 100% {{ transform: translate(60px, -60px) scale(1.2); }} }}
-    @keyframes floatReverse {{ 0% {{ transform: translate(0px, 0px) scale(1); }} 100% {{ transform: translate(-70px, 70px) scale(1.25); }} }}
+    @keyframes float {{ 0% {{ transform: translate(0px, 0px); }} 100% {{ transform: translate(60px, -60px); }} }}
+    @keyframes floatReverse {{ 0% {{ transform: translate(0px, 0px); }} 100% {{ transform: translate(-70px, 70px); }} }}
 
     /* 4. Text Content */
-    .content-wrapper {{ position: relative; z-index: 10; padding: 0 20px; background: transparent !important; }}
+    .content-wrapper {{ position: relative; z-index: 10; padding: 0 20px; }}
     [data-testid="stAppViewBlockContainer"] {{ background-color: transparent !important; padding-top: 2rem; }}
 
-    .hook-text {{ color: {active_theme['primary']}; text-shadow: 0 0 25px {active_theme['orb1']}; font-size: 2.3rem; font-weight: 700; text-align: center; margin-top: 3vh; margin-bottom: 60px; line-height: 1.4; font-family: 'Georgia', serif; transition: color 1.5s ease; }}
-    .body-text {{ color: #F0F0F0; font-size: 1.25rem; line-height: 1.9; font-family: 'Helvetica Neue', sans-serif; margin-bottom: 50px; text-shadow: 0 0 2px rgba(255,255,255,0.1); }}
-    .section-title {{ color: {active_theme['secondary']}; font-size: 1.5rem; font-family: 'Georgia', serif; margin-top: 30px; margin-bottom: 20px; text-shadow: 0 0 15px {active_theme['orb2']}; border-bottom: 1px solid {active_theme['orb2']}; padding-bottom: 10px; text-align: center; transition: color 1.5s ease; }}
-    .sign-off {{ color: {active_theme['primary']}; text-align: center; font-size: 1.1rem; margin-top: 60px; margin-bottom: 40px; font-style: italic; text-shadow: 0 0 20px {active_theme['orb1']}; transition: color 1.5s ease; }}
+    .hook-text {{ color: {active_theme['primary']}; text-shadow: 0 0 25px {active_theme['orb1']}; font-size: 2.3rem; font-weight: 700; text-align: center; margin-top: 3vh; margin-bottom: 60px; line-height: 1.4; font-family: 'Georgia', serif; }}
+    .body-text {{ color: #F0F0F0; font-size: 1.25rem; line-height: 1.9; font-family: 'Helvetica Neue', sans-serif; margin-bottom: 50px; }}
+    .section-title {{ color: {active_theme['secondary']}; font-size: 1.5rem; font-family: 'Georgia', serif; margin-top: 30px; margin-bottom: 20px; text-shadow: 0 0 15px {active_theme['orb2']}; border-bottom: 1px solid {active_theme['orb2']}; padding-bottom: 10px; text-align: center; }}
+    .sign-off {{ color: {active_theme['primary']}; text-align: center; font-size: 1.1rem; margin-top: 60px; margin-bottom: 40px; font-style: italic; }}
 
-    /* 5. Native Button Styling */
+    /* 5. Button Styling */
     button[kind="primary"] {{
         background-color: {active_theme['orb1']} !important;
         border: 1px solid {active_theme['primary']} !important;
         color: {active_theme['primary']} !important;
-        text-shadow: 0 0 10px {active_theme['orb1']} !important;
-        font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;
     }}
     button[kind="secondary"] {{
         background-color: rgba(3,6,4,0.6) !important;
         border: 1px solid rgba(255,255,255,0.1) !important;
         color: #A0A0A0 !important;
-        font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;
     }}
-
-    /* 6. Sidebar Branding */
-    .brand-text {{ color: {active_theme['secondary']}; text-align: center; font-size: 0.9rem; margin-top: 20px; font-family: 'Courier New', monospace; text-shadow: 0 0 10px {active_theme['orb2']}; transition: color 1.5s ease; }}
     </style>
 """, unsafe_allow_html=True)
 
