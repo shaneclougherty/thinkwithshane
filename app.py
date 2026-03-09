@@ -58,10 +58,16 @@ active_theme = themes[st.session_state.current_category]
 st.markdown(f"""
     <style>
 
-    /* ASSASSINATE STREAMLIT BRANDING */
+    /* ASSASSINATE BRANDING BUT SAVE THE SIDEBAR */
+    footer {{visibility: hidden;}}
     [data-testid="stHeaderActionElements"] {{display: none !important;}}
     [data-testid="stToolbar"] {{display: none !important;}}
-    footer {{display: none !important;}}
+    
+    /* This line hides the background of the header but keeps the sidebar toggle functional */
+    [data-testid="stHeader"] {{
+        background: transparent !important;
+        color: {active_theme['primary']} !important;
+    }}
     
     /* NUKE THE BOTTOM RIGHT CORNER */
     .viewerBadge_container {{display: none !important;}}
