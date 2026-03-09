@@ -68,17 +68,26 @@ st.markdown(f"""
     @keyframes ambientGlow {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
     
     /* 2. THE BRANDING ASSASSIN (Silent Method) */
-    /* This keeps the header active (so the sidebar works) but hides the icons */
-    [data-testid="stHeader"] {{ background: rgba(0,0,0,0) !important; }}
-    [data-testid="stHeaderActionElements"] {{ opacity: 0 !important; pointer-events: none !important; }}
-    [data-testid="stToolbar"] {{ display: none !important; }}
-    footer {{ display: none !important; }}
-    .viewerBadge_container {{ display: none !important; }}
 
-    /* Make the Sidebar Toggle Button stand out */
-    button[data-testid="stSidebarCollapseButton"] {{
-        color: {active_theme['primary']} !important;
-    }}
+[data-testid="stHeader"] {{ background: rgba(0,0,0,0) !important; }}
+
+/* Hide ONLY the branding/toolbar icons, not the whole header action area */
+[data-testid="stToolbar"] {{ display: none !important; }}
+[data-testid="stDecoration"] {{ display: none !important; }}
+footer {{ display: none !important; }}
+.viewerBadge_container {{ display: none !important; }}
+
+/* Hide the GitHub and Streamlit logo icons specifically */
+[data-testid="stHeaderActionElements"] a {{ display: none !important; }}
+[data-testid="stHeaderActionElements"] button:not([data-testid="stSidebarNavCollapseButton"]):not([data-testid="stBaseButton-headerNoPadding"]) {{ display: none !important; }}
+
+/* Make the Sidebar Toggle Button stand out */
+button[data-testid="stSidebarCollapseButton"],
+button[data-testid="stSidebarNavCollapseButton"] {{
+    color: {active_theme['primary']} !important;
+    opacity: 1 !important;
+    pointer-events: all !important;
+}}
 
     /* 3. The Dynamic Orbs */
     .orb-1 {{
