@@ -57,6 +57,11 @@ active_theme = themes[st.session_state.current_category]
 # --- 5. CLEAN CSS INJECTION ---
 st.markdown(f"""
     <style>
+    
+    /* Hide Streamlit Branding */
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    
     /* 1. The Breathing Background */
     .stApp {{ 
         background: linear-gradient(-45deg, #020403, #061410, #020403, #041214);
