@@ -57,8 +57,6 @@ active_theme = themes[st.session_state.current_category]
 # --- 5. CLEAN CSS INJECTION ---
 st.markdown(f"""
     <style>
-
-    
     /* 1. The Breathing Background */
     .stApp {{ 
         background: linear-gradient(-45deg, #020403, #061410, #020403, #041214);
@@ -69,10 +67,25 @@ st.markdown(f"""
     }}
     @keyframes ambientGlow {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
     
-    [data-testid="stHeader"] {{ background-color: transparent !important; }}
-    [data-testid="stHeader"] button {{ color: {active_theme['primary']} !important; transition: all 0.3s ease; }}
-    
-    /* 2. The Dynamic Orbs */
+    /* 2. THE BRANDING ASSASSIN (Nuke everything but the Sidebar Toggle) */
+    [data-testid="stHeader"] {{
+        background-color: rgba(0,0,0,0) !important;
+    }}
+    [data-testid="stHeaderActionElements"], [data-testid="stToolbar"], footer {{
+        display: none !important;
+    }}
+    .viewerBadge_container, .viewerBadge_link, #ManageAppButton {{
+        display: none !important;
+    }}
+
+    /* Force the Sidebar Button to be visible and themed */
+    button[data-testid="stSidebarCollapseButton"] {{
+        color: {active_theme['primary']} !important;
+        background-color: rgba(255,255,255,0.05) !important;
+        border-radius: 50% !important;
+    }}
+
+    /* 3. The Dynamic Orbs */
     .orb-1 {{
         position: fixed; top: 15%; left: 5%; width: 50vw; height: 50vw;
         background-color: {active_theme['orb1']}; filter: blur(140px);
@@ -88,7 +101,7 @@ st.markdown(f"""
     @keyframes float {{ 0% {{ transform: translate(0px, 0px) scale(1); }} 100% {{ transform: translate(60px, -60px) scale(1.2); }} }}
     @keyframes floatReverse {{ 0% {{ transform: translate(0px, 0px) scale(1); }} 100% {{ transform: translate(-70px, 70px) scale(1.25); }} }}
 
-    /* 3. Text Content */
+    /* 4. Text Content */
     .content-wrapper {{ position: relative; z-index: 10; padding: 0 20px; background: transparent !important; }}
     [data-testid="stAppViewBlockContainer"] {{ background-color: transparent !important; padding-top: 2rem; }}
 
@@ -97,7 +110,7 @@ st.markdown(f"""
     .section-title {{ color: {active_theme['secondary']}; font-size: 1.5rem; font-family: 'Georgia', serif; margin-top: 30px; margin-bottom: 20px; text-shadow: 0 0 15px {active_theme['orb2']}; border-bottom: 1px solid {active_theme['orb2']}; padding-bottom: 10px; text-align: center; transition: color 1.5s ease; }}
     .sign-off {{ color: {active_theme['primary']}; text-align: center; font-size: 1.1rem; margin-top: 60px; margin-bottom: 40px; font-style: italic; text-shadow: 0 0 20px {active_theme['orb1']}; transition: color 1.5s ease; }}
 
-    /* 4. Native Button Styling */
+    /* 5. Native Button Styling */
     button[kind="primary"] {{
         background-color: {active_theme['orb1']} !important;
         border: 1px solid {active_theme['primary']} !important;
@@ -111,15 +124,9 @@ st.markdown(f"""
         color: #A0A0A0 !important;
         font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;
     }}
-    button[kind="secondary"]:hover {{
-        border: 1px solid {active_theme['primary']} !important;
-        color: {active_theme['primary']} !important;
-    }}
 
-    /* 5. Sidebar Branding */
+    /* 6. Sidebar Branding */
     .brand-text {{ color: {active_theme['secondary']}; text-align: center; font-size: 0.9rem; margin-top: 20px; font-family: 'Courier New', monospace; text-shadow: 0 0 10px {active_theme['orb2']}; transition: color 1.5s ease; }}
-    .x-logo-container a {{ color: {active_theme['primary']} !important; transition: all 0.3s ease; display: inline-block; padding: 10px; }}
-    .x-logo-container a:hover {{ transform: scale(1.1); filter: drop-shadow(0 0 8px {active_theme['orb1']}); }}
     </style>
 """, unsafe_allow_html=True)
 
