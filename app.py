@@ -57,11 +57,16 @@ active_theme = themes[st.session_state.current_category]
 # --- 5. CLEAN CSS INJECTION ---
 st.markdown(f"""
     <style>
-    
+
     /* ASSASSINATE STREAMLIT BRANDING */
     [data-testid="stHeaderActionElements"] {{display: none !important;}}
     [data-testid="stToolbar"] {{display: none !important;}}
     footer {{display: none !important;}}
+    
+    /* NUKE THE BOTTOM RIGHT CORNER */
+    .viewerBadge_container {{display: none !important;}}
+    .viewerBadge_link {{display: none !important;}}
+    #ManageAppButton {{display: none !important;}}
     
     /* 1. The Breathing Background */
     .stApp {{ 
