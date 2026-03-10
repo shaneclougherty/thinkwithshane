@@ -57,7 +57,7 @@ active_theme = themes[st.session_state.current_category]
 # --- 5. CLEAN CSS INJECTION ---
 st.markdown(f"""
     <style>
-    
+
     /* 1. The Breathing Background */
     .stApp {{ 
         background: linear-gradient(-45deg, #020403, #061410, #020403, #041214);
@@ -143,6 +143,11 @@ st.markdown(f"""
         border: 1px solid rgba(255,255,255,0.1) !important;
         color: #A0A0A0 !important;
     }}
+    
+    /* 6. Footer Branding Restoration */
+    .brand-text {{ color: {active_theme['secondary']}; text-align: center; font-size: 0.9rem; margin-top: 40px; font-family: 'Courier New', monospace; text-shadow: 0 0 10px {active_theme['orb2']}; transition: color 1.5s ease; }}
+    .x-logo-container a {{ color: {active_theme['primary']} !important; transition: all 0.3s ease; display: inline-block; padding: 10px; }}
+    .x-logo-container a:hover {{ transform: scale(1.1); filter: drop-shadow(0 0 8px {active_theme['orb1']}); }}
     </style>
 """, unsafe_allow_html=True)
 
