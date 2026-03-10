@@ -67,46 +67,26 @@ st.markdown(f"""
     }}
     @keyframes ambientGlow {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
     
-    /* 2. THE BRANDING ASSASSIN - Precision Strike */
-    /* Transparent header background */
-    [data-testid="stHeader"] {{ background: rgba(0,0,0,0) !important; }}
+    /* 2. THE BRANDING ASSASSIN - Nuclear Option */
     
-    /* Nuke the bottom footer permanently using wildcard selectors */
-    footer {{ display: none !important; visibility: hidden !important; }}
-    div[class^="viewerBadge"] {{ display: none !important; }}
+    /* 1. Hide the Streamlit Footer permanently */
+    footer {visibility: hidden !important; display: none !important;}
     
-    /* Clean the Top Right Header */
-    /* 1. Hide the GitHub Icon */
-    [data-testid="stHeaderActionElements"] a {{ display: none !important; }}
-    /* 2. Hide the Deploy/Manage button */
-    .stDeployButton {{ display: none !important; }}
-    div[class*="stDeployButton"] {{ display: none !important; }}
+    /* 2. Hide the Cloud Viewer Badge (The bottom right logo) */
+    div[class^="viewerBadge"] {display: none !important;}
     
-    /* Ensure the three-dot Main Menu stays visible so users can click 'Share' */
-    #MainMenu {{ visibility: visible !important; }}
+    /* 3. Hide the ENTIRE top right cluster (GitHub, Deploy, Menu) */
+    [data-testid="stHeaderActionElements"] {display: none !important;}
     
-    /* CRITICAL: Force sidebar toggle to always be visible */
-    [data-testid="stSidebarCollapsedControl"] {{
+    /* 4. Make the header background completely invisible */
+    [data-testid="stHeader"] {background: rgba(0,0,0,0) !important;}
+    
+    /* 5. Protect the Sidebar Toggle */
+    [data-testid="stSidebarCollapsedControl"] {
         display: block !important;
         visibility: visible !important;
-        opacity: 1 !important;
-        pointer-events: all !important;
-    }}
-    [data-testid="stSidebarCollapsedControl"] button {{
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        pointer-events: all !important;
-        color: {active_theme['primary']} !important;
-    }}
-    
-    /* Handle the collapse button when sidebar IS open */
-    [data-testid="stSidebarCollapseButton"] {{
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        color: {active_theme['primary']} !important;
-    }}
+        z-index: 99999 !important;
+    }
 
     /* 3. The Dynamic Orbs */
     .orb-1 {{
