@@ -67,22 +67,23 @@ st.markdown(f"""
     }}
     @keyframes ambientGlow {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
     
-    /* 2. THE BRANDING ASSASSIN - Surgical Method */
+    /* 2. THE BRANDING ASSASSIN - Precision Strike */
     /* Transparent header background */
     [data-testid="stHeader"] {{ background: rgba(0,0,0,0) !important; }}
     
-    /* Hide the bottom footer */
-    footer {{ visibility: hidden !important; }}
-    .viewerBadge_container__r5tak {{ display: none !important; }}
+    /* Nuke the bottom footer permanently using wildcard selectors */
+    footer {{ display: none !important; visibility: hidden !important; }}
+    div[class^="viewerBadge"] {{ display: none !important; }}
     
-    /* Hide Streamlit menu button (hamburger) and GitHub icon - but NOT sidebar toggle */
-    #MainMenu {{ visibility: hidden !important; }}
+    /* Clean the Top Right Header */
+    /* 1. Hide the GitHub Icon */
+    [data-testid="stHeaderActionElements"] a {{ display: none !important; }}
+    /* 2. Hide the Deploy/Manage button */
+    .stDeployButton {{ display: none !important; }}
+    div[class*="stDeployButton"] {{ display: none !important; }}
     
-    /* Hide all anchor tags in the header (GitHub link, etc.) */
-    [data-testid="stHeader"] a {{ display: none !important; }}
-    
-    /* Hide the specific Streamlit branding button - it has no data-testid but is the 2nd button */
-    [data-testid="stHeaderActionElements"] > div:last-child {{ display: none !important; }}
+    /* Ensure the three-dot Main Menu stays visible so users can click 'Share' */
+    #MainMenu {{ visibility: visible !important; }}
     
     /* CRITICAL: Force sidebar toggle to always be visible */
     [data-testid="stSidebarCollapsedControl"] {{
@@ -99,7 +100,7 @@ st.markdown(f"""
         color: {active_theme['primary']} !important;
     }}
     
-    /* Also handle the collapse button when sidebar IS open */
+    /* Handle the collapse button when sidebar IS open */
     [data-testid="stSidebarCollapseButton"] {{
         display: block !important;
         visibility: visible !important;
