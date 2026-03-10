@@ -1,7 +1,6 @@
 import streamlit as st
 import random
 import os
-import streamlit.components.v1 as components
 from dotenv import load_dotenv
 from supabase import create_client, Client
 
@@ -68,18 +67,20 @@ st.markdown(f"""
     }}
     @keyframes ambientGlow {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
     
-    /* 2. THE BRANDING ASSASSIN - Attribute Targeting */
-    /* 1. Hide the ENTIRE top right cluster */
-    [data-testid="stHeaderActionElements"] {{ display: none !important; visibility: hidden !important; }}
-    [data-testid="stToolbar"] {{ display: none !important; visibility: hidden !important; }}
+    /* 2. THE BRANDING ASSASSIN - Nuclear Option */
+    /* Hide the Streamlit Footer permanently */
+    footer {{visibility: hidden !important; display: none !important;}}
     
-    /* 2. Hide the floating bottom badge by targeting its hyperlink */
-    a[href^="https://streamlit.io"] {{ display: none !important; pointer-events: none !important; }}
+    /* Hide the Cloud Viewer Badge (The bottom right logo) */
+    div[class^="viewerBadge"] {{display: none !important;}}
     
-    /* 3. Hide the standard footer */
-    footer {{ display: none !important; visibility: hidden !important; }}
+    /* Hide the ENTIRE top right cluster (GitHub, Deploy, Menu) */
+    [data-testid="stHeaderActionElements"] {{display: none !important;}}
     
-    /* 4. Protect the Sidebar Toggle */
+    /* Make the header background completely invisible */
+    [data-testid="stHeader"] {{background: rgba(0,0,0,0) !important;}}
+    
+    /* Protect the Sidebar Toggle */
     [data-testid="stSidebarCollapsedControl"] {{
         display: block !important;
         visibility: visible !important;
@@ -130,6 +131,8 @@ st.markdown(f"""
     
     </style>
 """, unsafe_allow_html=True)
+
+st.markdown("<div class='orb-1'></div><div class='orb-2'></div>", unsafe_allow_html=True)
 
 # --- 6. THE DYNAMIC SIDEBAR ---
 with st.sidebar:
@@ -199,34 +202,6 @@ else:
     st.markdown(f"<div class='hook-text'>The engine is currently hunting the archives for {st.session_state.current_category}.</div>", unsafe_allow_html=True)
     st.markdown("<div class='body-text'><div class='section-title'>Status: Pending</div>The AI Editor has not yet published an essay for this discipline. It will wake up tonight at 2:00 AM to scan the global research networks.</div>", unsafe_allow_html=True)
     st.markdown("<div class='body-text'><div class='section-title'>Next Steps</div>Check back tomorrow morning to see what reality it shatters next.</div>", unsafe_allow_html=True)
-
-# --- 9. CUSTOM SHARE BUTTON ---
-st.markdown("<br>", unsafe_allow_html=True)
-components.html(
-    f"""
-    <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-        <button onclick="navigator.clipboard.writeText('https://YOUR-URL-HERE.streamlit.app'); alert('Link copied to clipboard!');" 
-        style="
-            background-color: transparent; 
-            border: 1px solid {active_theme['primary']}; 
-            color: {active_theme['primary']}; 
-            padding: 12px 24px; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-family: 'Helvetica Neue', sans-serif; 
-            font-weight: bold;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            box-shadow: 0 0 10px {active_theme['orb1']};
-            transition: all 0.3s ease;
-        ">
-            Share The Shift
-        </button>
-    </div>
-    """,
-    height=80
-)
 
 # Dynamic Sign-off
 if st.session_state.current_category in ["Psychology", "Human Systems"]:
