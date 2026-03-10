@@ -57,7 +57,7 @@ active_theme = themes[st.session_state.current_category]
 # --- 5. CLEAN CSS INJECTION ---
 st.markdown(f"""
     <style>
-
+    
     /* 1. The Breathing Background */
     .stApp {{ 
         background: linear-gradient(-45deg, #020403, #061410, #020403, #041214);
@@ -68,25 +68,24 @@ st.markdown(f"""
     @keyframes ambientGlow {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
     
     /* 2. THE BRANDING ASSASSIN - Nuclear Option */
+    /* Hide the Streamlit Footer permanently */
+    footer {{visibility: hidden !important; display: none !important;}}
     
-    /* 1. Hide the Streamlit Footer permanently */
-    footer {visibility: hidden !important; display: none !important;}
+    /* Hide the Cloud Viewer Badge (The bottom right logo) */
+    div[class^="viewerBadge"] {{display: none !important;}}
     
-    /* 2. Hide the Cloud Viewer Badge (The bottom right logo) */
-    div[class^="viewerBadge"] {display: none !important;}
+    /* Hide the ENTIRE top right cluster (GitHub, Deploy, Menu) */
+    [data-testid="stHeaderActionElements"] {{display: none !important;}}
     
-    /* 3. Hide the ENTIRE top right cluster (GitHub, Deploy, Menu) */
-    [data-testid="stHeaderActionElements"] {display: none !important;}
+    /* Make the header background completely invisible */
+    [data-testid="stHeader"] {{background: rgba(0,0,0,0) !important;}}
     
-    /* 4. Make the header background completely invisible */
-    [data-testid="stHeader"] {background: rgba(0,0,0,0) !important;}
-    
-    /* 5. Protect the Sidebar Toggle */
-    [data-testid="stSidebarCollapsedControl"] {
+    /* Protect the Sidebar Toggle */
+    [data-testid="stSidebarCollapsedControl"] {{
         display: block !important;
         visibility: visible !important;
         z-index: 99999 !important;
-    }
+    }}
 
     /* 3. The Dynamic Orbs */
     .orb-1 {{
@@ -129,6 +128,7 @@ st.markdown(f"""
     .brand-text {{ color: {active_theme['secondary']}; text-align: center; font-size: 0.9rem; margin-top: 40px; font-family: 'Courier New', monospace; text-shadow: 0 0 10px {active_theme['orb2']}; transition: color 1.5s ease; }}
     .x-logo-container a {{ color: {active_theme['primary']} !important; transition: all 0.3s ease; display: inline-block; padding: 10px; }}
     .x-logo-container a:hover {{ transform: scale(1.1); filter: drop-shadow(0 0 8px {active_theme['orb1']}); }}
+    
     </style>
 """, unsafe_allow_html=True)
 
