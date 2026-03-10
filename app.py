@@ -69,23 +69,22 @@ st.markdown(f"""
     @keyframes ambientGlow {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
     
     /* 2. THE BRANDING ASSASSIN - Attribute Targeting */
-    
     /* 1. Hide the ENTIRE top right cluster */
-    [data-testid="stHeaderActionElements"] { display: none !important; visibility: hidden !important; }
-    [data-testid="stToolbar"] { display: none !important; visibility: hidden !important; }
+    [data-testid="stHeaderActionElements"] {{ display: none !important; visibility: hidden !important; }}
+    [data-testid="stToolbar"] {{ display: none !important; visibility: hidden !important; }}
     
     /* 2. Hide the floating bottom badge by targeting its hyperlink */
-    a[href^="https://streamlit.io"] { display: none !important; pointer-events: none !important; }
+    a[href^="https://streamlit.io"] {{ display: none !important; pointer-events: none !important; }}
     
     /* 3. Hide the standard footer */
-    footer { display: none !important; visibility: hidden !important; }
+    footer {{ display: none !important; visibility: hidden !important; }}
     
     /* 4. Protect the Sidebar Toggle */
-    [data-testid="stSidebarCollapsedControl"] {
+    [data-testid="stSidebarCollapsedControl"] {{
         display: block !important;
         visibility: visible !important;
         z-index: 99999 !important;
-    }
+    }}
 
     /* 3. The Dynamic Orbs */
     .orb-1 {{
@@ -131,8 +130,6 @@ st.markdown(f"""
     
     </style>
 """, unsafe_allow_html=True)
-
-st.markdown("<div class='orb-1'></div><div class='orb-2'></div>", unsafe_allow_html=True)
 
 # --- 6. THE DYNAMIC SIDEBAR ---
 with st.sidebar:
