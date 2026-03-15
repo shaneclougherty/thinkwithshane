@@ -22,7 +22,7 @@ if not gemini_api_key:
 
 genai.configure(api_key=gemini_api_key)
 # Using flash model for speed and efficiency
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-2.5-flash')
 
 # Your 5 exact categories
 categories = ["Psychology", "Human History", "Physics", "Biology", "Technology"]
