@@ -1,0 +1,31 @@
+name: The Daily Hunt
+
+on:
+  schedule:
+    # 10:00 UTC is exactly 6:00 AM EDT
+    - cron: '0 10 * * *'
+  workflow_dispatch: # This is your manual override button
+
+jobs:
+  run-hunter-engine:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install requests supabase python-dotenv google-generativeai
+
+      - name: Execute the Reality Shift
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python hunter.py
