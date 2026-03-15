@@ -2,9 +2,9 @@ import os
 import requests
 import json
 import random
+import google.genai as genai
 from dotenv import load_dotenv
 from supabase import create_client
-from google import genai # The NEW library
 
 # --- 1. SETUP ---
 load_dotenv()
