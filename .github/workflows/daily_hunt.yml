@@ -21,7 +21,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install requests supabase python-dotenv google-generativeai
+          pip install requests supabase python-dotenv google-genai
 
       - name: Execute the Reality Shift
         env:
