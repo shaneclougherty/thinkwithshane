@@ -337,7 +337,8 @@ def run_daily_hunt():
                     "hook": shift.get("hook", ""),
                     "mechanism": shift.get("mechanism", ""),
                     "shift": shift.get("shift", ""),
-                    "source_citation": f"Subject: {specific_target}"
+                    "source_citation": f"Subject: {specific_target}",
+                    "source_title": specific_target  # <--- You add it right here in hunter.py
                 }).execute()
                 print(f"Success: {category} locked into the vault.")
             except Exception as e:
