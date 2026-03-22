@@ -68,10 +68,17 @@ st.markdown(f"""
     }}
     @keyframes ambientGlow {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
     
-    /* 2. BASE FRAMEWORK CLEANUP (Render Safe) */
+    /* 2. BASE FRAMEWORK CLEANUP (Stripped Down) */
+    /* Kept this to hide the "Made with Streamlit" text at the very bottom */
     footer {visibility: hidden !important; display: none !important;}
-    [data-testid="stHeader"] {background: rgba(0,0,0,0) !important;}
-    [data-testid="stToolbar"] {visibility: hidden !important; display: none !important;}
+    
+    /* We removed the stHeader and stToolbar assassins so your button survives */
+    
+    /* Make the surviving toggle button white so it pops on the dark background */
+    [data-testid="collapsedControl"] svg {
+        fill: #FFFFFF !important;
+        color: #FFFFFF !important;
+    }
     
     /* THE FIX: Protect and Style the Sidebar Toggle */
     [data-testid="collapsedControl"] {
@@ -83,10 +90,6 @@ st.markdown(f"""
         padding: 5px;
         margin-top: 10px;
         margin-left: 10px;
-    }
-    [data-testid="collapsedControl"] svg {
-        fill: #FFFFFF !important;
-        color: #FFFFFF !important;
     }
 
     /* 3. The Dynamic Orbs */
