@@ -11,7 +11,7 @@ st.set_page_config(
     page_title="Think With Shane",  
     page_icon="💠",                 
     layout="wide", 
-    initial_sidebar_state="expanded" # <--- FIXED: This forces the sidebar to show up immediately
+    initial_sidebar_state="collapsed"
 )
 
 # Initialize Supabase
