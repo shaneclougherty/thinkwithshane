@@ -2,7 +2,7 @@ import streamlit as st
 import random
 import os
 from dotenv import load_dotenv
-from supabase import create_client, Client
+from supabase import create_client
 
 # --- 1. AUTHENTICATION & SETUP ---
 load_dotenv()
@@ -10,8 +10,8 @@ load_dotenv()
 st.set_page_config(
     page_title="Think With Shane",  
     page_icon="💠",                 
-    layout="wide", # Using wide layout helps fit 5 columns nicely on desktop
-    initial_sidebar_state="collapsed"
+    layout="wide", 
+    initial_sidebar_state="expanded" # <--- FIXED: This forces the sidebar to show up immediately
 )
 
 # Initialize Supabase
@@ -132,23 +132,26 @@ with st.sidebar:
     st.markdown(f"<h3 style='color: {active_theme['primary']}; text-shadow: 0 0 10px {active_theme['orb1']}; text-align: center; transition: color 1.5s ease;'>Get the Spark</h3>", unsafe_allow_html=True)
     st.caption("Subscribe for the daily shift.")
     
-    email_input = st.text_input("Email (Full Read):", placeholder="Enter email...")
-    phone_input = st.text_input("SMS (Quick Hint):", placeholder="Enter phone #...")
-    
-    if st.button("Subscribe", key="sub_btn", use_container_width=True):
-        if email_input or phone_input:
-            try:
-                # Insert directly into the Supabase 'subscribers' table
-                supabase.table('subscribers').insert({"email": email_input, "phone": phone_input}).execute()
-                st.success("You are locked in.")
-            except Exception as e:
-                st.error("Connection error. Try again.")
-        else:
-            st.warning("Please enter an email or phone number to get the spark.")
+    # UPGRADED: Using st.form so the app doesn't refresh on every keystroke
+    with st.form("subscribe_form", clear_on_submit=True):
+        email_input = st.text_input("Email (Full Read):", placeholder="Enter email...")
+        phone_input = st.text_input("SMS (Quick Hint):", placeholder="Enter phone #...")
+        submitted = st.form_submit_button("Subscribe", use_container_width=True)
+        
+        if submitted:
+            if email_input or phone_input:
+                try:
+                    # Insert directly into the Supabase 'subscribers' table
+                    supabase.table('subscribers').insert({"email": email_input, "phone": phone_input}).execute()
+                    st.success("You are locked in.")
+                except Exception as e:
+                    st.error("Connection error. Try again.")
+            else:
+                st.warning("Please enter an email or phone number to get the spark.")
     
     st.divider()
     
-    # NEW MISSION STATEMENT SECTION
+    # MISSION STATEMENT SECTION
     st.markdown(f"<h3 style='color: {active_theme['secondary']}; text-shadow: 0 0 10px {active_theme['orb2']}; text-align: center; transition: color 1.5s ease;'>The Mission</h3>", unsafe_allow_html=True)
     st.markdown("""
         <div style='color: #D3D3D3; font-size: 0.95rem; line-height: 1.7; text-align: justify; padding: 10px 5px; font-family: "Helvetica Neue", sans-serif;'>
@@ -162,7 +165,7 @@ with st.sidebar:
     st.markdown("<div class='brand-text'>designed and built by<br><b>thinkwithshane</b></div>", unsafe_allow_html=True)
     st.markdown(f"""
         <div class="x-logo-container" style="text-align: center; margin-top: 15px;">
-            <a href="YOUR_X_LINK_HERE" target="_blank">
+            <a href="https://x.com/thinkwithshane" target="_blank">
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
@@ -207,7 +210,7 @@ if vault_data:
     st.markdown(f"<div class='body-text'><div class='section-title'>The Facts</div>{vault_data['mechanism']}</div>", unsafe_allow_html=True)
     st.markdown(f"<div class='body-text'><div class='section-title'>So What?</div>{vault_data['shift']}</div>", unsafe_allow_html=True)
     
-    # NEW CITATION INJECTION
+    # CITATION INJECTION
     if vault_data.get('source_citation'):
         st.markdown(f"<div style='text-align: center; color: #888; font-size: 0.85rem; margin-top: 40px; font-family: monospace;'>Source: {vault_data['source_citation']}</div>", unsafe_allow_html=True)
         
