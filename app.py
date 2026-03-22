@@ -216,9 +216,21 @@ if vault_data:
     st.markdown(f"<div class='body-text'><div class='section-title'>The Facts</div>{vault_data['mechanism']}</div>", unsafe_allow_html=True)
     st.markdown(f"<div class='body-text'><div class='section-title'>So What?</div>{vault_data['shift']}</div>", unsafe_allow_html=True)
     
-    # THE RABBIT HOLE INJECTION
+    # THE RABBIT HOLE LINK INJECTION
     if vault_data.get('source_citation'):
-        st.markdown(f"<div style='text-align: center; color: {active_theme['secondary']}; font-size: 0.95rem; margin-top: 50px; margin-bottom: 20px; font-family: monospace;'>🔍 Down the Rabbit Hole: <b>{vault_data['source_citation']}</b></div>", unsafe_allow_html=True)
+        # 1. Format the string for a Google Search URL (swaps spaces for +)
+        search_query = vault_data['source_citation'].replace(' ', '+')
+        google_url = f"https://www.google.com/search?q={search_query}"
+        
+        # 2. Render the clickable link
+        st.markdown(f"""
+            <div style='text-align: center; margin-top: 50px; margin-bottom: 20px; font-family: monospace; font-size: 0.95rem;'>
+                <span style='color: {active_theme['secondary']};'>🔍 Down the Rabbit Hole: </span>
+                <a href='{google_url}' target='_blank' style='color: {active_theme['primary']}; text-decoration: none; border-bottom: 1px dashed {active_theme['primary']}; transition: opacity 0.3s ease;' onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+                    <b>{vault_data['source_citation']}</b>
+                </a>
+            </div>
+        """, unsafe_allow_html=True)
         
 else:
     st.markdown(f"<div class='hook-text'>The engine is currently hunting the archives for {st.session_state.current_category}.</div>", unsafe_allow_html=True)
