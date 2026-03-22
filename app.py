@@ -162,8 +162,7 @@ with st.sidebar:
     st.markdown(f"<h3 style='color: {active_theme['secondary']}; text-shadow: 0 0 10px {active_theme['orb2']}; text-align: center; transition: color 1.5s ease;'>The Mission</h3>", unsafe_allow_html=True)
     st.markdown("""
         <div style='color: #D3D3D3; font-size: 0.95rem; line-height: 1.7; text-align: justify; padding: 10px 5px; font-family: "Helvetica Neue", sans-serif;'>
-        This space is designed to make you think. Every single day, we hunt down bleeding-edge academic research and translate it into a reality shift. <br><br>
-        The goal? To help you discover what you were never taught, question the systems you blindly accept, and spark high-level conversations with the people around you. 
+        Fuel for the curious mind. Every day, we translate fascinating concepts from science, history, and human behavior into quick, high-impact reads. The goal is simple: learn something new daily, expand your perspective, and bring higher-level ideas to every conversation. 
         </div>
     """, unsafe_allow_html=True)
         
