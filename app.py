@@ -222,16 +222,21 @@ if vault_data:
     st.markdown(f"<div class='body-text'><div class='section-title'>The Facts</div>{vault_data['mechanism']}</div>", unsafe_allow_html=True)
     st.markdown(f"<div class='body-text'><div class='section-title'>So What?</div>{vault_data['shift']}</div>", unsafe_allow_html=True)
     
-    # CITATION INJECTION
+    # THE RABBIT HOLE INJECTION
     if vault_data.get('source_citation'):
-        st.markdown(f"<div style='text-align: center; color: #888; font-size: 0.85rem; margin-top: 40px; font-family: monospace;'>Source: {vault_data['source_citation']}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='text-align: center; color: {active_theme['secondary']}; font-size: 0.95rem; margin-top: 50px; margin-bottom: 20px; font-family: monospace;'>🔍 Down the Rabbit Hole: <b>{vault_data['source_citation']}</b></div>", unsafe_allow_html=True)
         
 else:
     st.markdown(f"<div class='hook-text'>The engine is currently hunting the archives for {st.session_state.current_category}.</div>", unsafe_allow_html=True)
-    st.markdown("<div class='body-text'><div class='section-title'>Status: Pending</div>The AI Editor has not yet published an essay for this discipline. It will wake up tonight at 2:00 AM to scan the global research networks.</div>", unsafe_allow_html=True)
+    st.markdown("<div class='body-text'><div class='section-title'>Status: Pending</div>The AI Editor has not yet published a breakdown for this discipline.</div>", unsafe_allow_html=True)
     st.markdown("<div class='body-text'><div class='section-title'>Next Steps</div>Check back tomorrow morning to see what reality it shatters next.</div>", unsafe_allow_html=True)
 
-# Dynamic Sign-off
-st.markdown(f"<div class='sign-off'>Think about that. See you tomorrow.</div>", unsafe_allow_html=True)
+# Dynamic Sign-off with the 6:00 AM anchor
+st.markdown(f"""
+    <div class='sign-off'>
+        Think about that.<br>
+        <span style='font-size: 0.85rem; color: #666; font-family: monospace; letter-spacing: 1px;'>THE ENGINE RESETS AT 6:00 AM EST.</span>
+    </div>
+""", unsafe_allow_html=True)
 
 st.markdown("</div>", unsafe_allow_html=True)
