@@ -69,16 +69,25 @@ st.markdown(f"""
     @keyframes ambientGlow {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
     
     /* 2. BASE FRAMEWORK CLEANUP (Render Safe) */
-    footer {{visibility: hidden !important; display: none !important;}}
-    [data-testid="stHeader"] {{background: rgba(0,0,0,0) !important;}}
-    [data-testid="stToolbar"] {{visibility: hidden !important; display: none !important;}}
+    footer {visibility: hidden !important; display: none !important;}
+    [data-testid="stHeader"] {background: rgba(0,0,0,0) !important;}
+    [data-testid="stToolbar"] {visibility: hidden !important; display: none !important;}
     
-    /* Protect the Sidebar Toggle */
-    [data-testid="stSidebarCollapsedControl"] {{
-        display: block !important;
+    /* THE FIX: Protect and Style the Sidebar Toggle */
+    [data-testid="collapsedControl"] {
+        display: flex !important;
         visibility: visible !important;
-        z-index: 99999 !important;
-    }}
+        z-index: 999999 !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border-radius: 50%;
+        padding: 5px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+    [data-testid="collapsedControl"] svg {
+        fill: #FFFFFF !important;
+        color: #FFFFFF !important;
+    }
 
     /* 3. The Dynamic Orbs */
     .orb-1 {{
