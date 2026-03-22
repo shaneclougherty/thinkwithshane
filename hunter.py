@@ -54,12 +54,13 @@ category_rules = {
             
             Strict Constraints:
             1. "hook": Provide the exact title given in the Concept field. Do NOT write a sentence. Just output the hybrid title.
-            2. "mechanism": Provide a detailed, 3-5 sentence explanation of the core psychology experiment or bias. Use 'The Facts' as the header.
-            3. "shift": The 'Real-World Friction'—A 3-5 sentence breakdown of how this manifests in high-stakes scenarios (toxic relationships, stagnant careers). Use gritty, visceral examples. No trivial snack or shopping examples.
-            4. Tone: Analytical, provocative, and grounded. 
-            5. End with one Socratic question.
+            2. "mechanism": Provide a detailed, 3-5 sentence explanation of the core psychology experiment or bias. Use 'The Facts' as the header. YOU MUST casually and explicitly name the primary scientist, historical figure, or specific university/year where this was discovered within the text.
+            3. "shift": The 'Real-World Friction'—A 3-5 sentence breakdown of how this manifests in high-stakes scenarios. Use gritty, visceral examples. No trivial snack or shopping examples.
+            4. "rabbit_hole": Output a highly specific 3-6 word search term the reader can use to verify this concept and fall down a Wikipedia/Google rabbit hole (e.g., "The Asch Conformity Experiments 1951").
+            5. Tone: Analytical, provocative, and grounded. 
+            6. End with one Socratic question.
             
-            Return ONLY a valid JSON object with: "hook", "mechanism", "shift".
+            Return ONLY a valid JSON object with: "hook", "mechanism", "shift", "rabbit_hole".
         """
     },
     "Human History": {
@@ -333,11 +334,11 @@ def run_daily_hunt():
             try:
                 supabase.table("reality_shifts").insert({
                     "category": category,
-                    "hook": shift.get("hook", ""),
+                    "hook": shift.get("hook", ""), 
                     "mechanism": shift.get("mechanism", ""),
                     "shift": shift.get("shift", ""),
-                    "source_citation": f"Subject: {specific_target}",
-                    "source_title": specific_target  # <--- You add it right here in hunter.py
+                    "source_citation": shift.get("rabbit_hole", ""), # <--- The Hijack!
+                    "source_title": specific_target
                 }).execute()
                 print(f"Success: {category} locked into the vault.")
             except Exception as e:
