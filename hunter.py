@@ -13,7 +13,7 @@ supabase = create_client(supabase_url, supabase_key)
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-# --- 2. THE MASTER RULES DICTIONARY ---
+# ---- 2. THE MASTER RULES -----
 category_rules = {
     "Psychology": {
         "director": """
@@ -46,19 +46,18 @@ category_rules = {
 
             Step 3: THE EJECT BUTTON. If the Archetype and Arena combination is forced or illogical, immediately discard the Arena and randomly select a different one.
             
-            Step 4: Find a specific cognitive bias, psychological phenomenon, or famous study that perfectly fits the Archetype and applies heavily to the chosen Arena.
-            Output ONLY the 1-7 word name of the concept. No punctuation.
+            Step 4: Output ONLY a title formatted in two parts separated by a colon: '[The Concept]: [The Friction]'. Maximum 7 words. (e.g., 'Status Quo Bias: The Cost of Comfort'). No period at the end.
         """,
         "translator": """
-            Translate this research into an 8th-grade level, highly practical behavioral breakdown using your own knowledge. 
+            Translate this research into a sophisticated, high-impact behavioral breakdown for a curious 11th-grade reader. 
             Concept: {paper_data}
             
             Strict Constraints:
-            1. "hook": Punchy 1-sentence intro to the specific mental trap.
-            2. "mechanism": Explain the core psychology experiment or cognitive bias simply and factually.
-            3. "shift": Explain exactly how this invisible bias manipulates our daily decisions, routines, or interactions in the real world. Provide a concrete, everyday example. Do NOT use grand, life-changing metaphors.
-            4. Tone: Analytical, tactical, and grounded in behavioral science. 
-            5. End with one Socratic question challenging the reader to spot this bias in their own life today.
+            1. "hook": Provide the exact title given in the Concept field. Do NOT write a sentence. Just output the hybrid title.
+            2. "mechanism": Provide a detailed, 3-5 sentence explanation of the core psychology experiment or bias. Use 'The Facts' as the header.
+            3. "shift": The 'Real-World Friction'—A 3-5 sentence breakdown of how this manifests in high-stakes scenarios (toxic relationships, stagnant careers). Use gritty, visceral examples. No trivial snack or shopping examples.
+            4. Tone: Analytical, provocative, and grounded. 
+            5. End with one Socratic question.
             
             Return ONLY a valid JSON object with: "hook", "mechanism", "shift".
         """
@@ -94,16 +93,16 @@ category_rules = {
             
             Step 3: THE EJECT BUTTON. If the Archetype and Era combination is historically barren, discard the Era and pick a new one. 
             
-            Output ONLY the 1-7 word name of the specific historical event or person. No punctuation.
+            Step 4: Output ONLY a title formatted in two parts separated by a colon: '[The Event/Person]: [The Impact]'. Maximum 7 words. (e.g., 'Allied Rivalry: The Race Across France'). No period at the end.
         """,
         "translator": """
-            Translate this historical event into an 8th-grade level, highly compelling educational breakdown using your own knowledge.
+            Translate this historical event into a detailed, highly compelling educational breakdown for a curious 11th-grade reader.
             Event: {paper_data} 
             
             Strict Constraints:
-            1. "hook": Punchy 1-sentence intro to the stakes.
-            2. "mechanism": Tell the historical story clearly, focusing on human decisions.
-            3. "shift": Connect the event to modern daily life, business, or overcoming failure.
+            1. "hook": Provide the exact title given in the Event field. Do NOT write a sentence. Just output the hybrid title.
+            2. "mechanism": Provide a detailed, 3-5 sentence explanation of the historical story, focusing on human decisions.
+            3. "shift": Provide a 3-5 sentence breakdown connecting the event to modern daily life, leadership, or overcoming failure.
             4. Tone: Epic but grounded.
             5. End with one Socratic question.
             
@@ -141,17 +140,17 @@ category_rules = {
 
             Step 3: THE EJECT BUTTON. If the Branch and Lens combination is scientifically impossible or creates a dead zone, immediately discard the Lens and randomly select a different one.
 
-            Output ONLY the 1-7 word name of the concept. No punctuation.
+            Step 4: Output ONLY a title formatted in two parts separated by a colon: '[The Concept]: [The Paradox/Illusion]'. Maximum 7 words. (e.g., 'Superposition: Reality Undecided'). No period at the end.
         """,
         "translator": """
-            Translate this physics concept into an 8th-grade level, pure-information educational breakdown using your own knowledge.
+            Translate this physics concept into a detailed, pure-information breakdown for a curious 11th-grade reader.
             Concept: {paper_data}
             
             Strict Constraints:
-            1. "hook": Punchy 1-sentence intro to the mind-bending nature of the concept.
-            2. "mechanism": Explain the pure physics facts clearly and simply. NO life metaphors.
-            3. "shift": Explain exactly how this fundamentally breaks our everyday intuition about how the physical world works.
-            4. Tone: Factual, awe-inspiring, and grounded in pure science.
+            1. "hook": Provide the exact title given in the Concept field. Do NOT write a sentence. Just output the hybrid title.
+            2. "mechanism": Provide a detailed, 3-5 sentence explanation of the pure physics facts. NO life metaphors.
+            3. "shift": The 'Intuition Shatter'—A 3-5 sentence breakdown of exactly how this law proves that our human senses are lying to us about how reality functions at a fundamental level.
+            4. Tone: Factual and awe-inspiring.
             5. End with one open-ended Socratic question.
             
             Return ONLY a valid JSON object with: "hook", "mechanism", "shift".
@@ -188,16 +187,16 @@ category_rules = {
 
             Step 3: THE EJECT BUTTON. If the Branch and Lens combination is scientifically barren or forced, immediately discard the Lens and select a different one.
 
-            Output ONLY the 1-7 word name of the concept or organism. No punctuation.
+            Step 4: Output ONLY a title formatted in two parts separated by a colon: '[The Concept/Organism]: [The Survival Trait]'. Maximum 7 words. (e.g., 'The Microbiome: The Invisible Army'). No period at the end.
         """,
         "translator": """
-            Translate this biological concept into an 8th-grade level, pure-information educational breakdown using your own knowledge.
+            Translate this biological concept into a detailed, pure-information breakdown for a curious 11th-grade reader.
             Concept: {paper_data}
             
             Strict Constraints:
-            1. "hook": Punchy 1-sentence intro to the mind-bending nature of this biological reality.
-            2. "mechanism": Explain the pure biological, evolutionary, or biomechanical facts clearly. NO lifestyle metaphors.
-            3. "shift": Explain exactly why this mechanism is an absolute marvel of nature, survival, or evolutionary engineering.
+            1. "hook": Provide the exact title given in the Concept field. Do NOT write a sentence. Just output the hybrid title.
+            2. "mechanism": Provide a detailed, 3-5 sentence explanation of the pure biological, evolutionary, or biomechanical facts. NO lifestyle metaphors.
+            3. "shift": The 'Survival Logic'—A 3-5 sentence breakdown explaining how this mechanism, which might seem strange today, was the literal reason our ancestors survived.
             4. Tone: Factual, awe-inspiring, and grounded in pure hard science.
             5. End with one open-ended Socratic question.
             
@@ -240,16 +239,16 @@ category_rules = {
 
             Step 3: THE EJECT BUTTON. If the Branch and Lens combination is barren, immediately discard the Lens and select a different one.
 
-            Output ONLY the 1-7 word name of the concept. No punctuation.
+            Step 4: Output ONLY a title formatted in two parts separated by a colon: '[The Tech]: [The Breakthrough/Limit]'. Maximum 7 words. (e.g., 'Quantum Qubits: Escaping Binary Physics'). No period at the end.
         """,
         "translator": """
-            Translate this technology concept into an 8th-grade level, pure-information educational breakdown using your own knowledge.
+            Translate this technology concept into a detailed, pure-information breakdown for a curious 11th-grade reader.
             Concept: {paper_data}
             
             Strict Constraints:
-            1. "hook": Punchy 1-sentence intro to the scale or impact of this technological advancement.
-            2. "mechanism": Explain the pure engineering or hardware facts clearly and simply. Focus heavily on how it works.
-            3. "shift": Explain exactly why this breakthrough is a marvel of human ingenuity and how it pushes the boundaries of what is possible.
+            1. "hook": Provide the exact title given in the Concept field. Do NOT write a sentence. Just output the hybrid title.
+            2. "mechanism": Provide a detailed, 3-5 sentence explanation of the pure engineering or hardware facts. Focus heavily on how it works.
+            3. "shift": The 'Invisible Infrastructure'—A 3-5 sentence breakdown explaining how this specific advancement is secretly holding up a part of the modern world.
             4. Tone: Factual, awe-inspiring, and grounded in pure engineering.
             5. End with one open-ended Socratic question.
             
